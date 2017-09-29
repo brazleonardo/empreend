@@ -1,0 +1,73 @@
+<nav class="breadcrumb" ng-include="'app/templates/views/partial/breadcrumb.html'"></nav>
+
+<div id="main" class="container main-imoveis" ng-if="isPage">     
+
+    <div id="all-posts">
+
+      <div class="session result-info">
+        <h3>{{ resultTotal }}</h3>
+      </div>
+
+      <div class="posts" ng-repeat="p in allImoveis | filter:{bairro:bairroCidade} | filter:{compra:opCategoria} | filter:{tipo:opTipo}">
+        <div class="row">
+          <div class="col-xs-6 col-sm-4">
+            <div class="gallery">
+              <a href="{{p.link}}">
+               <ul>
+                <li ng-repeat="img in p.galeria">
+                  <div class="image" style="background-image: url({{ img.image  }});">
+                    <img ng-src="{{img.thumb}}">
+                  </div>
+                </li>
+                </ul>
+              </a>
+            </div>
+          </div>
+          <div class="col-xs-6 col-sm-8">
+            <div class="entry">
+              <span>{{ p.bairro }}, {{ p.cidade }} - {{ p.estado }}</span>
+              <h3><a href="{{p.link}}">{{ p.nome }}</a></h3>
+              <p>{{ p.resumo }}</p>
+              <ul>
+                <li>
+                  <span class="t">{{ p.area }}</span>
+                  <span class="small">Área Total</span>
+                </li>
+                <li>
+                  <span class="t">{{ p.qtd_quartos }}</span>
+                  <span class="small">Quartos</span>
+                </li>
+                <li>
+                  <span class="t">{{ p.qtd_banheiros }}</span>
+                  <span class="small">Banheiros</span>
+                </li>
+                <li>
+                  <span class="t">{{ p.qtd_vagas }}</span>
+                  <span class="small">Vagas</span>
+                </li>
+              </ul>
+              <a href="{{p.link}}" class="btn btn-info">Detalhes</a>
+            </div>
+          </div>
+        </div>
+      </div>
+        
+    </div>
+
+    <nav aria-label="Page navigation" class="session" ng-if="page().length > '1'">
+      <ul class="pagination">
+        <li>
+          <a href="{{ rotaDefultPage }}{{ prev() }}" aria-label="Previous">
+            <span aria-hidden="true">< Página Anterior</span>
+          </a>
+        </li>
+          <li ng-repeat="p in page()"  class="{{ p.class }}"><a href="{{ p.link }}">{{ p.num }}</a></li>
+        <li>
+          <a href="{{ rotaDefultPage }}{{ next() }}" aria-label="Next">
+            <span aria-hidden="true">Próxima Página ></span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+
+</div>

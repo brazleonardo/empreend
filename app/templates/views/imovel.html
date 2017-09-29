@@ -1,0 +1,147 @@
+<nav class="breadcrumb" ng-include="'app/templates/views/partial/breadcrumb.html'"></nav>
+
+<div id="main" class="container" ng-if="isPage">
+
+    <div class="post">
+
+      <header class="header-imovel">
+        <h1 class="title">{{ imovel.nome }}</h1>     
+        <span class="end">{{ imovel.endereco }}</span>
+      </header> 
+
+      <div class="row">
+
+        <div class="col-xs-12 col-md-8">
+          <div class="session gallery">
+            <ul>
+              <li ng-repeat="img in imovel.galeria">
+                <div class="image" style="background-image: url({{ img.image  }});">
+                  <img ng-src="{{ img.image }}" class="img-responsive">
+                </div>
+              </li>
+            </ul>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-md-4">
+          <div class="session info">
+            <ul>
+              <li>
+                <span class="icon icon-apartment-prices"></span>
+                <div class="cont">
+                  <span>Preço</span>
+                  <h3>{{ imovel.preco_imovel }}</h3>
+                  <div class="in" ng-if="imovel.taxa_condominio == 'sim'">
+                    <span>Condomínio</span>
+                    <h3>{{ imovel.preco_cond }}</h3>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <span class="icon icon-type-imovel"></span>
+                <div class="cont">
+                  <span>Tipo do Imóvel</span>
+                  <h3 class="t">{{ imovel.tipo_label }}</h3>
+                </div>
+              </li>
+              <li>
+                <span class="icon icon-area"></span>
+                  <div class="cont">
+                  <span>Área</span>
+                  <h3>{{ imovel.area }}</h3>
+                </div>
+              </li>
+              <li>
+                <span class="icon icon-key"></span>
+                  <div class="cont">
+                  <span>Quartos</span>
+                  <h3>{{ imovel.qtd_quartos }}</h3>
+                </div>
+              </li>
+              <li>
+                <span class="icon icon-hygienic"></span>
+                  <div class="cont">
+                  <span>Banheiros</span>
+                  <h3>{{ imovel.qtd_banheiros }}</h3>
+                </div>
+              </li>
+              <li>
+                <span class="icon icon-car"></span>
+                  <div class="cont">
+                  <span>Vagas</span>
+                  <h3>{{ imovel.qtd_vagas }}</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+          <div class="session desc">
+            <div class="intro" ng-bind-html="imovel.info">
+              {{ imovel.info }}
+            </div>
+            <div class="intro" ng-if="imovel.caracteristica.length > 0">
+              <h3>Características</h3>
+              <ul class="caract row">
+                <li ng-repeat="carac in imovel.caracteristica" class="col-xs-12 col-md-4">{{ carac }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-xs-12 col-md-12">
+          <div class="session map">
+            <div id="map"></div>
+          </div>
+        </div>
+
+      </div>
+        
+    </div>
+
+</div>
+
+<div id="relation" class="session bg-gray" ng-if="isPage && relation">
+  <div class="container">
+    <h3 class="title">Veja opções de outros imóveis similares</h3>
+    <ul class="row">
+      <li class="col-xs-12 col-md-4" ng-repeat="p in relation">
+        <div class="post">
+          <div class="image-imovel" ng-repeat="img in p.galeria">
+            <a href="{{p.link}}" class="image" style="background-image: url({{ img.image  }});">
+              <img ng-src="{{img.thumb}}">
+            </a>
+          </div>
+          <div class="entry">
+            <span>{{ p.bairro }}, {{ p.cidade }} - {{ p.estado }}</span>
+            <span class="subtitle"><a href="{{p.link}}">{{ p.nome }}</a></span>
+            <ul>
+              <li>
+                <span class="icon icon-area"></span>
+                <span class="t">{{ p.area }}</span>
+                <span class="small">Área Total</span>
+              </li>
+              <li>
+                <span class="icon icon-key"></span>
+                <span class="t">{{ p.qtd_quartos }}</span>
+                <span class="small">Quartos</span>
+              </li>
+              <li>
+                <span class="icon icon-hygienic"></span>
+                <span class="t">{{ p.qtd_banheiros }}</span>
+                <span class="small">Banheiros</span>
+              </li>
+              <li>
+                <span class="icon icon-car"></span>
+                <span class="t">{{ p.qtd_vagas }}</span>
+                <span class="small">Vagas</span>
+              </li>
+            </ul>
+            <a href="{{p.link}}" class="btn btn-info">Detalhes</a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

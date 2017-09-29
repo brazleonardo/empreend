@@ -1,0 +1,49 @@
+ <div class="panel panel-default search-imovel">
+    <div class="panel-body">
+        <form method="post" ng-submit="searchImovel()" autocomplete="off">
+            <div class="row">
+                <div class="col-xs-12 col-md-3">
+                    <div class="custom-select">
+                        <select class="form-control" name="compra" ng-model="opcaoCategoria" ng-change="getChangeValue(opcaoCategoria)">
+                            <option value="1">Comprar</option>
+                            <option value="2">Alugar</option>
+                            <option value="3">Imóvel Novo</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-3">
+                    <div class="custom-select">
+                        <select class="form-control" name="tipo" ng-model="opcaoTipo">
+                            <option value="1">Apartamento</option>
+                            <option value="2">Casa</option>
+                            <option value="3">Casa de condomínio</option>
+                            <option value="4">Sobrado</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4 sch-control">
+                    <input type="text" name="localizacao" id="localizacao" class="form-control" ng-focus="help(true)" ng-blur="help(false)"  ng-keyup="search(buscar)" ng-model="buscar" placeholder="Bairro/Cidade">
+                    <div class="autocomp" ng-show="sugest">
+                        <p><strong>Como usar o campo!</strong></p>
+                        <ul>
+                            <li><strong>Bairro</strong> - Ex: Casa Verde, São Paulo - sp</li>
+                            <li><strong>Cidade</strong> - Ex: São Paulo - sp</li>
+                            <li><strong>Estado</strong> - Ex: sp</li>
+                        </ul>
+                    </div>
+                    <div class="autocomp result" ng-show="completing">
+                        <ul>
+                            <li ng-if="bairros" class="lab">Bairros</li>
+                            <li ng-repeat="b in bairros"><a href="{{ urlPath }}{{ b.link }}"><i class="icon-placeholder"></i> {{ b.bairro }}, {{ b.cidade }} - {{ b.estado }}</a></li>
+                             <li ng-if="cidades" class="lab">Cidades</li>
+                             <li ng-repeat="c in cidades"><a href="{{ urlPath }}{{ c.link }}"><i class="icon-placeholder"></i> {{ c.cidade }} - {{ c.estado }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-2">
+                    <label for="localizacao" class="btn-search"><i class="icon-search"></i> Buscar</label>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>  
