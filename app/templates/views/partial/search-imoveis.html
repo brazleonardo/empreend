@@ -37,6 +37,7 @@
                             <li ng-repeat="b in bairros"><a href="{{ urlPath }}{{ b.link }}"><i class="icon-placeholder"></i> {{ b.bairro }}, {{ b.cidade }} - {{ b.estado }}</a></li>
                              <li ng-if="cidades" class="lab">Cidades</li>
                              <li ng-repeat="c in cidades"><a href="{{ urlPath }}{{ c.link }}"><i class="icon-placeholder"></i> {{ c.cidade }} - {{ c.estado }}</a></li>
+                             <li class="restul-zero" ng-show="resultZero">Ops!!! Não encontramos imóveis para essa localidade.</li>
                         </ul>
                     </div>
                 </div>
