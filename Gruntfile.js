@@ -31,6 +31,8 @@ module.exports = function (grunt) {
             js: {
                 files: {
                     'src/js/temp/vendor.js': [
+                        'src/js/libs/jquery-3.2.1.min.js',
+                        'src/js/libs/owl.carousel.js',
                         'src/js/vendor/angular.min.js',
                         'src/js/vendor/angular-sanitize.min.js',
                         'src/js/vendor/angular-route.min.js',
