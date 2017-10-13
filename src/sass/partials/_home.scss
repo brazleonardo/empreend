@@ -94,24 +94,24 @@ body.home #main {
 
 					&.lancamentos {
 						.btn-info {
-							background-color: #25e5cc;
-							border-color: #1ec9b2;
+							background-color: $principalLancamento;
+							border-color: $principalLancamentoStrong;
 
 							&:hover {
-								background-color: #1ec9b2;
-								border-color: #1ec9b2;
+								background-color: $principalLancamentoStrong;
+								border-color: $principalLancamentoStrong;
 							}
 						}
 					}
 
 					&.comprar {
 						.btn-info {
-							background-color: #6114cc;
-							border-color: #4b0ba5;
+							background-color: $principal;
+							border-color: $principalStrong;
 
 							&:hover {
-								background-color: #4b0ba5;
-								border-color: #4b0ba5;
+								background-color: $principalStrong;
+								border-color: $principalStrong;
 							}
 						}
 					}
