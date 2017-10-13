@@ -1,6 +1,23 @@
 
   app.factory('apiConnect', ['$q', '$http', function ($q, $http) {
     return {
+      getCustomHome: function (info, params) {
+
+        if(params == 'undefined'){
+          params = null;
+        }
+
+        var deferred = $q.defer(),
+            httpPromise = $http.get(apiURL+'/service/?info='+info+'&cat='+params+'&token=8c54dbf7be1b415eeecff30f9f2288c7');
+
+        httpPromise.then(function (response) {
+          deferred.resolve(response);
+        }, function (error) {
+          console.error(error);
+        });
+
+        return deferred.promise;
+      },
       getImoveis: function (info, pageNum, params) {
 
         if(params == 'undefined'){

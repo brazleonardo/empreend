@@ -104,6 +104,43 @@ function initMap(la, lg) {
 
 }
 
+function setCookie(key, value, duration){
+    var today = new Date(),
+		expire = new Date();
+	expire.setTime(today.getTime() + 3600000*24*duration);
+	document.cookie = key+"="+escape(value) + ";expires="+expire.toGMTString();
+}
+
+function getCookie(key){
+	var cookies = document.cookie,
+		prefix = key + "=",
+		begin = cookies.indexOf("; " + prefix);
+ 
+	if (begin == -1) {				 
+		begin = cookies.indexOf(prefix);						 
+		if (begin != 0) {
+			return null;
+		}				 
+	} 
+	else {
+		begin += 2;
+	}
+ 
+	var end = cookies.indexOf(";", begin);
+	 
+	if (end == -1) {
+		end = cookies.length;                        
+	}
+ 
+	return unescape(cookies.substring(begin + prefix.length, end));
+}
+
+function removeCookie(key){
+    if (getCookie(key)) {
+		document.cookie = key + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+   }
+}
+
 /*
 ** Controller da págia home
 */
@@ -190,6 +227,34 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 
 		}
 	}
+
+	var $localCat = 3, $localType = 1, $localUF = getCookie('uf'), $localCity = getCookie('city'),
+		params = $localCat +'&type=' + $localType + '&uf=' + $localUF + '&city=' + $localCity;
+
+	//Buaca os imoveis Lançamentos
+	apiConnect.getCustomHome('home', params)
+	  .then(function (response) {
+
+	    $scope.lancamentosImoveis = response.data.imovel;
+
+	  }, function (error) {
+	    console.error(error);
+	  });
+
+
+	 $localCat = 1;
+	 $localType = null;
+	 params = $localCat +'&type=' + $localType + '&uf=' + $localUF + '&city=' + $localCity;
+
+	//Buaca os imoveis Lançamentos
+	apiConnect.getCustomHome('home', params)
+	  .then(function (response) {
+
+	    $scope.sugestoesImoveis = response.data.imovel;
+
+	  }, function (error) {
+	    console.error(error);
+	  });
 
 }]);
 
@@ -302,6 +367,13 @@ app.controller('ImoveisCtrl', [
 		    }
 		    /*Fim das funções referente a paginação*/
 
+		    if($uf != null && $uf != ""){
+		   		setCookie("uf", $uf, 1);
+		    }
+		    if($city != null && $city != ""){
+		    	setCookie("city", $city, 1);
+		    }
+
 		    $scope.resultTotal = resultTitle($routeParams.category, response.data.retults, $routeParams.type);
 
 		    $scope.breadcumbs = response.data.breadcumbs;
@@ -349,6 +421,9 @@ app.controller('ImovelCtrl', [
 		  	$scope.breadcumbs = response.data.breadcumbs;
 		    $scope.imovel = response.data['imovel'];
 		    $scope.relation = response.data.relacionados;
+
+		    setCookie("uf", $scope.imovel['slug_uf'][0], 1);
+		    setCookie("city", $scope.imovel['slug_city'][0], 1);
 
 		    $scope.googleMap = true;
 
