@@ -228,8 +228,24 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 		}
 	}
 
-	var $localCat = 3, $localType = 1, $localUF = getCookie('uf'), $localCity = getCookie('city'),
+	var $cookie = JSON.parse(getCookie("locations"));
+
+	if($cookie) {
+		var $cookieUf = $cookie.uf,
+			$cookieCity = $cookie.city;
+
+		$scope.localizacao = " em " + $cookie.local;
+	}
+	if(!$cookie) {
+		var $cookieUf = "",
+			$cookieCity = "";
+	}
+
+
+	var $localCat = 3, $localType = 1, $localUF = $cookieUf, $localCity = $cookieCity,
 		params = $localCat +'&type=' + $localType + '&uf=' + $localUF + '&city=' + $localCity;
+
+	
 
 	//Buaca os imoveis Lançamentos
 	apiConnect.getCustomHome('home', params)
@@ -242,9 +258,9 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	  });
 
 
-	 $localCat = 1;
-	 $localType = null;
-	 params = $localCat +'&type=' + $localType + '&uf=' + $localUF + '&city=' + $localCity;
+	$localCat = 1;
+	$localType = null;
+	params = $localCat +'&type=' + $localType + '&uf=' + $localUF + '&city=' + $localCity;
 
 	//Buaca os imoveis Lançamentos
 	apiConnect.getCustomHome('home', params)
@@ -367,17 +383,15 @@ app.controller('ImoveisCtrl', [
 		    }
 		    /*Fim das funções referente a paginação*/
 
-		    if($uf != null && $uf != ""){
-		   		setCookie("uf", $uf, 1);
-		    }
-		    if($city != null && $city != ""){
-		    	setCookie("city", $city, 1);
-		    }
-
 		    $scope.resultTotal = resultTitle($routeParams.category, response.data.retults, $routeParams.type);
 
 		    $scope.breadcumbs = response.data.breadcumbs;
 		    $scope.allImoveis = response.data.imovel;
+
+		    if($uf != null && $uf != "" && $city != null && $city != ""){
+		    	var $localJson = {"uf": $uf, "city": $city, "local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label };
+		   		setCookie("locations", JSON.stringify($localJson), 1);
+		    }
 
 		  }, function (error) {
 		    console.error(error);
@@ -422,8 +436,16 @@ app.controller('ImovelCtrl', [
 		    $scope.imovel = response.data['imovel'];
 		    $scope.relation = response.data.relacionados;
 
-		    setCookie("uf", $scope.imovel['slug_uf'][0], 1);
-		    setCookie("city", $scope.imovel['slug_city'][0], 1);
+		    //setCookie("uf", $scope.imovel['slug_uf'][0], 1);
+		    //setCookie("city", $scope.imovel['slug_city'][0], 1);
+
+		    var $localJson = {
+		    		"uf": $scope.imovel['slug_uf'][0], 
+		    		"city": $scope.imovel['slug_city'][0], 
+		    		"local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label
+		    	};
+
+		   	setCookie("locations", JSON.stringify($localJson), 1);
 
 		    $scope.googleMap = true;
 

@@ -10,7 +10,7 @@
 
 	<div id="lancamentos" class="session bg-gray" ng-if="lancamentosImoveis">
 		<div class="container">
-			<h3 class="title">Lançamentos em destaque</h3>
+			<h3 class="title">Lançamentos em destaque{{ localizacao }}</h3>
 			<ul class="row">
 			  <li class="col-xs-12 col-md-4" ng-repeat="p in lancamentosImoveis">
 			    <div class="post lancamentos">
@@ -60,7 +60,7 @@
 
 	<div id="sugestoes" class="session bg-gray" ng-if="sugestoesImoveis">
 		<div class="container">
-			<h3 class="title">Sugestões de imóveis pra você comprar</h3>
+			<h3 class="title">Sugestões de imóveis pra você comprar{{ localizacao }}</h3>
 			<ul class="row">
 			  <li class="col-xs-12 col-md-4" ng-repeat="p in sugestoesImoveis">
 			    <div class="post comprar">
