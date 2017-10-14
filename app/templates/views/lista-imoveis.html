@@ -11,16 +11,16 @@
       <div class="posts" ng-repeat="p in allImoveis | filter:{bairro:bairroCidade} | filter:{compra:opCategoria} | filter:{tipo:opTipo}">
         <div class="row">
           <div class="col-xs-6 col-sm-4">
-            <div class="gallery">
-              <a href="{{p.link}}">
-               <ul>
-                <li ng-repeat="img in p.galeria">
-                  <div class="image" style="background-image: url({{ img.image  }});">
-                    <img ng-src="{{img.thumb}}">
-                  </div>
-                </li>
+            <div class="gallery">              
+               <ul class="owl-carousel">
+                  <li ng-repeat="img in p.galeria" class="item">
+                    <a href="{{p.link}}">
+                        <div class="image" style="background-image: url({{ img.image  }});">
+                          <img ng-src="{{img.thumb}}">
+                        </div>                  
+                    </a>
+                  </li>
                 </ul>
-              </a>
             </div>
           </div>
           <div class="col-xs-6 col-sm-8">

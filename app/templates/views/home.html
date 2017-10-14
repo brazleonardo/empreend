@@ -14,16 +14,16 @@
 			<ul class="row">
 			  <li class="col-xs-12 col-md-4" ng-repeat="p in lancamentosImoveis">
 			    <div class="post lancamentos">
-					<div class="gallery">
-						<a href="{{p.link}}">
-							<ul>
-								<li ng-repeat="img in p.galeria">
+					<div class="gallery">						
+						<ul class="owl-carousel">
+							<li ng-repeat="img in p.galeria" class="item">
+								<a href="{{p.link}}">
 								  <div class="image" style="background-image: url({{ img.image  }});">
 								    <img ng-src="{{img.thumb}}">
 								  </div>
-								</li>
-							</ul>
-						</a>
+								</a>
+							</li>
+						</ul>
 					</div>
 					<div class="entry">
 						<span>{{ p.bairro }}, {{ p.cidade }} - {{ p.estado }}</span>
@@ -64,16 +64,16 @@
 			<ul class="row">
 			  <li class="col-xs-12 col-md-4" ng-repeat="p in sugestoesImoveis">
 			    <div class="post comprar">
-					<div class="gallery">
-						<a href="{{p.link}}">
-							<ul>
-								<li ng-repeat="img in p.galeria">
-								  <div class="image" style="background-image: url({{ img.image  }});">
-								    <img ng-src="{{img.thumb}}">
-								  </div>
-								</li>
-							</ul>
-						</a>
+					<div class="gallery">						
+						<ul class="owl-carousel">								
+							<li ng-repeat="img in p.galeria" class="item">
+								<a href="{{p.link}}">
+									<div class="image" style="background-image: url({{ img.image  }});">
+										<img ng-src="{{img.thumb}}">
+									</div>
+								</a>
+							</li>
+						</ul>
 					</div>
 					<div class="entry">
 						<span>{{ p.bairro }}, {{ p.cidade }} - {{ p.estado }}</span>

@@ -643,16 +643,89 @@ body.home {
 					font-size: $fontePadrao;
 				}
 
+				.gallery {
+					width: 100%;
+					height: $heightMinGallery;
+					float: left;	
+					margin-bottom: 10px;
+
+					.owl-stage-outer,
+					.owl-stage,
+					.owl-item {
+						width: 100%;
+						height: 100%;
+					}
+					.owl-nav {
+
+						.owl-prev,
+						.owl-next {
+							width: 44px;
+							height: 69px;
+							position: absolute;
+							top: 50%;
+							transform: translateY(-50%);
+							z-index: 5;
+							overflow: hidden;
+							background-image: url("../images/sprite.png");
+							text-indent: -3333px;
+							transition: all 2s ease-out;
+							opacity: 0;
+						}
+						.owl-prev {
+							left: -100%;
+							background-position: 0 0;
+						}
+						.owl-next {
+							right: -100%;
+							background-position: -56px 0;
+						}
+					}
+
+					&:hover {
+						.owl-nav {
+							.owl-prev,
+							.owl-next { opacity: 0.8; }
+							.owl-prev {
+								left: 10px;
+							}
+							.owl-next {
+								right: 10px;
+							}
+						}
+					}	
+
+					ul {
+						width: 100%;
+						height: 100%;
+						float: left;
+						position: relative;	
+						overflow: hidden;
+						list-style: none;			
+
+						li {
+							width: 100%;
+							height: 100%;
+							float: left;
+							.image {
+								width: 100%;
+								height: 100%;
+								float: left;
+								background-size: cover;
+
+								img {
+									display: none;
+								}
+							}
+						}
+					}
+				}
+
 				.image {
 					width: 100%;
 					height: $heightMinGallery;
 					float: left;
 					background-size: cover;
 					margin-bottom: 10px;
-
-					img {
-						display: none;
-					}
 				}
 
 				.subtitle {

@@ -436,6 +436,18 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 
 	    $scope.lancamentosImoveis = response.data.imovel;
 
+	    $(function(){
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				items: 1,
+				autoplay: true,
+			    autoplayTimeout: 5000,
+			    autoplayHoverPause: true,
+			    nav: true
+			});
+		});
+
 	  }, function (error) {
 	    console.error(error);
 	  });
@@ -450,6 +462,18 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	  .then(function (response) {
 
 	    $scope.sugestoesImoveis = response.data.imovel;
+
+	    $(function(){
+			$('.owl-carousel').owlCarousel({
+				loop: true,
+				margin: 10,
+				items: 1,
+				autoplay: true,
+			    autoplayTimeout: 5000,
+			    autoplayHoverPause: true,
+			    nav: true
+			});
+		});
 
 	  }, function (error) {
 	    console.error(error);
@@ -571,6 +595,17 @@ app.controller('ImoveisCtrl', [
 		    $scope.breadcumbs = response.data.breadcumbs;
 		    $scope.allImoveis = response.data.imovel;
 
+		    $(function(){
+				$('.owl-carousel').owlCarousel({
+					loop: true,
+					margin: 10,
+					items: 1,
+					autoplay: false,
+				    autoplayTimeout: 0,
+				    nav: true
+				});
+			});
+
 		    if($uf != null && $uf != "" && $city != null && $city != ""){
 		    	var $localJson = {"uf": $uf, "city": $city, "local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label };
 		   		setCookie("locations", JSON.stringify($localJson), 1);
@@ -619,8 +654,27 @@ app.controller('ImovelCtrl', [
 		    $scope.imovel = response.data['imovel'];
 		    $scope.relation = response.data.relacionados;
 
-		    //setCookie("uf", $scope.imovel['slug_uf'][0], 1);
-		    //setCookie("city", $scope.imovel['slug_city'][0], 1);
+		    $(function(){
+				$('.gallery-main .owl-carousel').owlCarousel({
+					loop: true,
+					margin: 10,
+					items: 1,
+					autoplay: true,
+				    autoplayTimeout: 3000,
+				    autoplayHoverPause: true,
+				    nav: true
+				});
+
+				$('#relation .gallery .owl-carousel').owlCarousel({
+					loop: true,
+					margin: 10,
+					items: 1,
+					autoplay: false,
+				    autoplayTimeout: 0,
+				    nav: true
+				});
+			});
+
 
 		    var $localJson = {
 		    		"uf": $scope.imovel['slug_uf'][0], 
@@ -639,23 +693,9 @@ app.controller('ImovelCtrl', [
 		    var la = parseFloat(response.data['imovel'].address_lat),
 		    	lg = parseFloat(response.data['imovel'].address_lng);
 
-		    $timeout(function(){
-							
-			    initMap(la, lg);
-
-			    $(function(){
-					$('.owl-carousel').owlCarousel({
-						loop: true,
-						margin: 10,
-						items: 1,
-						autoplay: true,
-					    autoplayTimeout: 3000,
-					    autoplayHoverPause: true,
-					    nav: true
-					});
-				});
-
-				}, 500);
+		    $timeout(function(){							
+			    initMap(la, lg);		    
+			}, 500);
 
 
 		  }, function (error) {

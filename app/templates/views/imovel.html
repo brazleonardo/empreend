@@ -12,7 +12,7 @@
       <div class="row">
 
         <div class="col-xs-12 col-md-8">
-          <div class="session gallery">
+          <div class="session gallery gallery-main">
             <ul class="owl-carousel">
               <li ng-repeat="img in imovel.galeria" class="item">
                 <div class="image" style="background-image: url({{ img.image  }});">
@@ -108,10 +108,16 @@
     <ul class="row">
       <li class="col-xs-12 col-md-4" ng-repeat="p in relation">
         <div class="post">
-          <div class="image-imovel" ng-repeat="img in p.galeria">
-            <a href="{{p.link}}" class="image" style="background-image: url({{ img.image  }});">
-              <img ng-src="{{img.thumb}}">
-            </a>
+           <div class="gallery">              
+             <ul class="owl-carousel">
+                <li ng-repeat="img in p.galeria" class="item">
+                  <a href="{{p.link}}">
+                      <div class="image" style="background-image: url({{ img.image  }});">
+                        <img ng-src="{{img.thumb}}">
+                      </div>                  
+                  </a>
+                </li>
+              </ul>
           </div>
           <div class="entry">
             <span>{{ p.bairro }}, {{ p.cidade }} - {{ p.estado }}</span>

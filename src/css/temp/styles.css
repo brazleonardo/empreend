@@ -560,14 +560,66 @@ body.home #main {
       #relation ul li .post span {
         color: rgba(0, 0, 0, 0.54);
         font-size: 15px; }
+      #relation ul li .post .gallery {
+        width: 100%;
+        height: 225px;
+        float: left;
+        margin-bottom: 10px; }
+        #relation ul li .post .gallery .owl-stage-outer,
+        #relation ul li .post .gallery .owl-stage,
+        #relation ul li .post .gallery .owl-item {
+          width: 100%;
+          height: 100%; }
+        #relation ul li .post .gallery .owl-nav .owl-prev,
+        #relation ul li .post .gallery .owl-nav .owl-next {
+          width: 44px;
+          height: 69px;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 5;
+          overflow: hidden;
+          background-image: url("../images/sprite.png");
+          text-indent: -3333px;
+          transition: all 2s ease-out;
+          opacity: 0; }
+        #relation ul li .post .gallery .owl-nav .owl-prev {
+          left: -100%;
+          background-position: 0 0; }
+        #relation ul li .post .gallery .owl-nav .owl-next {
+          right: -100%;
+          background-position: -56px 0; }
+        #relation ul li .post .gallery:hover .owl-nav .owl-prev,
+        #relation ul li .post .gallery:hover .owl-nav .owl-next {
+          opacity: 0.8; }
+        #relation ul li .post .gallery:hover .owl-nav .owl-prev {
+          left: 10px; }
+        #relation ul li .post .gallery:hover .owl-nav .owl-next {
+          right: 10px; }
+        #relation ul li .post .gallery ul {
+          width: 100%;
+          height: 100%;
+          float: left;
+          position: relative;
+          overflow: hidden;
+          list-style: none; }
+          #relation ul li .post .gallery ul li {
+            width: 100%;
+            height: 100%;
+            float: left; }
+            #relation ul li .post .gallery ul li .image {
+              width: 100%;
+              height: 100%;
+              float: left;
+              background-size: cover; }
+              #relation ul li .post .gallery ul li .image img {
+                display: none; }
       #relation ul li .post .image {
         width: 100%;
         height: 225px;
         float: left;
         background-size: cover;
         margin-bottom: 10px; }
-        #relation ul li .post .image img {
-          display: none; }
       #relation ul li .post .subtitle {
         margin: 5px 0 15px;
         padding-bottom: 15px;

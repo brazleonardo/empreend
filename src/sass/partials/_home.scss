@@ -43,7 +43,7 @@ body.home #main {
 					border: 1px solid $cinza;
 
 					.gallery {
-						height: 225px;
+						height: $heightMinGallery;
 						margin-bottom: 10px;
 					}
 
