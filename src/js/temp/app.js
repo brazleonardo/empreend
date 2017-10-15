@@ -287,11 +287,19 @@ function initMap(la, lg) {
 
 }
 
-function setCookie(key, value, duration){
+function setCookie(key, value, duration, path, domain, secure){
     var today = new Date(),
 		expire = new Date();
+
 	expire.setTime(today.getTime() + 3600000*24*duration);
-	document.cookie = key+"="+escape(value) + ";expires="+expire.toGMTString();
+
+	var cook = key+"="+escape(value) +
+		((expire) ? "; expires=" + expire.toGMTString() : "") + 
+		((path) ? "; path=" + path   : "") + 
+		((domain) ? "; domain=" + domain : "") + 
+		((secure) ? "; secure" : ""); 
+
+	document.cookie = cook;
 }
 
 function getCookie(key){
@@ -608,7 +616,7 @@ app.controller('ImoveisCtrl', [
 
 		    if($uf != null && $uf != "" && $city != null && $city != ""){
 		    	var $localJson = {"uf": $uf, "city": $city, "local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label };
-		   		setCookie("locations", JSON.stringify($localJson), 1);
+		   		setCookie("locations", JSON.stringify($localJson), 7, "/");
 		    }
 
 		  }, function (error) {
@@ -682,7 +690,7 @@ app.controller('ImovelCtrl', [
 		    		"local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label
 		    	};
 
-		   	setCookie("locations", JSON.stringify($localJson), 1);
+		   	setCookie("locations", JSON.stringify($localJson), 7, "/");
 
 		    $scope.googleMap = true;
 
