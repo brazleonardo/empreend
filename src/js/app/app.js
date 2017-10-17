@@ -162,7 +162,7 @@
 	        	categoria = rota;
 
 			if(current.$$route.className == 'home'){
-				categoria = categoria_slug(1);
+				categoria = Cl.categorySlug(1);
 			}
 
 			if(current.$$route.className == 'imovel'){
