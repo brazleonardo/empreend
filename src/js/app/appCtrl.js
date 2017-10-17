@@ -222,10 +222,10 @@ app.controller('ImoveisCtrl', [
 
 		    	for(var i = 1; i <= totalPages; i++){	
 		    		if(i == 1){
-		    			pages.push({'link': rotaDefult, 'num': i, 'Cl':  i == current ? 'active' : ''});
+		    			pages.push({'link': rotaDefult, 'num': i, 'class':  i == current ? 'active' : ''});
 		    		}
 		    		if(i > 1){
-		    			pages.push({'link': rotaDefult + '/page/' + i, 'num': i, 'Cl':  i == current ? 'active' : ''});		    		
+		    			pages.push({'link': rotaDefult + '/page/' + i, 'num': i, 'class':  i == current ? 'active' : ''});		    		
 		    		}    		
 			   	}
 
