@@ -1,6 +1,162 @@
 (function(){
 	'use strict'
 
+	var Cl = {
+
+		/*Função que cria as rotas de busca de imóveis*/
+		getRouteSearch: function(cat, tip){
+			var route = 'imoveis/';
+			if(cat == 1){
+				route += 'comprar/';
+			}
+
+			if(cat == 2){
+				route += 'alugar/';
+			}
+
+			if(cat == 3){
+				route += 'lancamentos/';
+			}
+
+			if(tip == 1){
+				route += 'apartamento/'
+			}
+
+			if(tip == 2){
+				route += 'casa/'
+			}
+
+			if(tip == 3){
+				route += 'casa-de-condominio/'
+			}
+
+			if(tip == 4){
+				route += 'sobrado/'
+			}
+
+			return route;
+		},
+
+		/*Função que exite o títlo de acordo com o resultado retornado dos imóveis*/
+		resultTitle: function(rota, result, typeImov){
+			var resTotal = '';
+
+			if(rota == 'comprar'){
+		   		if(result == 0){
+		   			resTotal = 'Nenhum imóveis para comprar';
+		   		}
+		   		if(result == 1){
+		   			resTotal = result + ' Imóvel para comprar';
+		   		}
+		   		if(result > 1){
+		   			resTotal = result + ' Imóveis para comprar';
+		   		}
+
+		   	}
+
+		   	if(rota == 'alugar'){
+		   		if(result == 0){
+		   			resTotal = 'Nenhum imóveis para alugar';
+		   		}
+		   		if(result == 1){
+		   			resTotal = result + ' Imóvel para alugar';
+		   		}
+		   		if(result > 1){
+		   			resTotal = result + ' Imóveis para alugar';
+		   		}
+		   	}
+
+		   	if(rota == 'lancamentos'){
+		   		if(result == 0){
+		   			resTotal = 'Nenhum lançamento de imóvel novo';
+		   		}
+		   		if(result == 1){
+		   			resTotal = result + ' Lançamento de imóvel novo';
+		   		}
+		   		if(result > 1){
+		   			resTotal = result + ' Lançamentos de imóveis novos';
+		   		}
+		   	}
+
+		   	return resTotal;
+		},
+
+		/*Método que retorna o slug de acordo com o parametro (int) */
+		categorySlug: function(param){
+			var result = 'comprar';
+			if(param == 2) result = 'alugar';
+			if(param == 3) result = 'lancamentos';
+
+			return result;
+		},
+
+		/*Método que cria o mapa de acordo com as coordenadas passadas como parametros*/
+		initMap: function(la, lg){
+			var myLatLng = {lat: la, lng: lg};
+
+			var map = new google.maps.Map(document.getElementById('map'), {
+				center: myLatLng,
+				scrollwheel: false,
+				zoom: 15
+			});
+
+			var marker = new google.maps.Marker({
+				position: myLatLng,
+				map: map,
+				title: 'Hello World!'
+			});
+		},
+
+		/*Método que cria um cookie*/
+		setCookie: function(key, value, duration, path, domain, secure){
+			var today = new Date(),
+			expire = new Date();
+
+			expire.setTime(today.getTime() + 3600000*24*duration);
+
+			var cook = key+"="+escape(value) +
+				((expire) ? "; expires=" + expire.toGMTString() : "") + 
+				((path) ? "; path=" + path   : "") + 
+				((domain) ? "; domain=" + domain : "") + 
+				((secure) ? "; secure" : ""); 
+
+			document.cookie = cook;
+		},
+
+		/*Método que retorna o cookie de acordo com o parametro passado*/
+		getCookie: function(key){
+			var cookies = document.cookie,
+			prefix = key + "=",
+			begin = cookies.indexOf("; " + prefix);
+	 
+			if (begin == -1) {				 
+				begin = cookies.indexOf(prefix);						 
+				if (begin != 0) {
+					return null;
+				}				 
+			} 
+			else {
+				begin += 2;
+			}
+		 
+			var end = cookies.indexOf(";", begin);
+			 
+			if (end == -1) {
+				end = cookies.length;                        
+			}
+		 
+			return unescape(cookies.substring(begin + prefix.length, end));
+		},
+
+		/*Método que deleta o cookie de acordo com o parametro passado*/
+		removeCookie: function(key){
+			if (Cl.getCookie(key)) {
+				document.cookie = key + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
+		   }
+		}
+
+	};
+
 	/*
 	* Declara o modulo para App
 	*/
@@ -181,157 +337,6 @@
 
 	    });
 	}]);
-
-/*Função que cria as rotas de busca de imóveis*/
-function getRouteSearch(cat, tip){
-	var route = 'imoveis/';
-	if(cat == 1){
-		route += 'comprar/';
-	}
-
-	if(cat == 2){
-		route += 'alugar/';
-	}
-
-	if(cat == 3){
-		route += 'lancamentos/';
-	}
-
-	if(tip == 1){
-		route += 'apartamento/'
-	}
-
-	if(tip == 2){
-		route += 'casa/'
-	}
-
-	if(tip == 3){
-		route += 'casa-de-condominio/'
-	}
-
-	if(tip == 4){
-		route += 'sobrado/'
-	}
-
-	return route;
-}
-
-/*Função que exite o títlo de acordo com o resultado retornado dos imóveis*/
-function resultTitle(rota, result, typeImov){
-
-	var resTotal = '';
-
-	if(rota == 'comprar'){
-   		if(result == 0){
-   			resTotal = 'Nenhum imóveis para comprar';
-   		}
-   		if(result == 1){
-   			resTotal = result + ' Imóvel para comprar';
-   		}
-   		if(result > 1){
-   			resTotal = result + ' Imóveis para comprar';
-   		}
-
-   	}
-
-   	if(rota == 'alugar'){
-   		if(result == 0){
-   			resTotal = 'Nenhum imóveis para alugar';
-   		}
-   		if(result == 1){
-   			resTotal = result + ' Imóvel para alugar';
-   		}
-   		if(result > 1){
-   			resTotal = result + ' Imóveis para alugar';
-   		}
-   	}
-
-   	if(rota == 'lancamentos'){
-   		if(result == 0){
-   			resTotal = 'Nenhum lançamento de imóvel novo';
-   		}
-   		if(result == 1){
-   			resTotal = result + ' Lançamento de imóvel novo';
-   		}
-   		if(result > 1){
-   			resTotal = result + ' Lançamentos de imóveis novos';
-   		}
-   	}
-
-   	return resTotal;
-}
-
-function categoria_slug($param){
-	var result = 'comprar';
-	if($param == 2) result = 'alugar';
-	if($param == 3) result = 'lancamentos';
-
-	return result;
-}
-
-function initMap(la, lg) {
-        
-  var myLatLng = {lat: la, lng: lg};
-
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: myLatLng,
-    scrollwheel: false,
-    zoom: 15
-  });
-
-  var marker = new google.maps.Marker({
-    position: myLatLng,
-    map: map,
-    title: 'Hello World!'
-  });
-
-}
-
-function setCookie(key, value, duration, path, domain, secure){
-    var today = new Date(),
-		expire = new Date();
-
-	expire.setTime(today.getTime() + 3600000*24*duration);
-
-	var cook = key+"="+escape(value) +
-		((expire) ? "; expires=" + expire.toGMTString() : "") + 
-		((path) ? "; path=" + path   : "") + 
-		((domain) ? "; domain=" + domain : "") + 
-		((secure) ? "; secure" : ""); 
-
-	document.cookie = cook;
-}
-
-function getCookie(key){
-	var cookies = document.cookie,
-		prefix = key + "=",
-		begin = cookies.indexOf("; " + prefix);
- 
-	if (begin == -1) {				 
-		begin = cookies.indexOf(prefix);						 
-		if (begin != 0) {
-			return null;
-		}				 
-	} 
-	else {
-		begin += 2;
-	}
- 
-	var end = cookies.indexOf(";", begin);
-	 
-	if (end == -1) {
-		end = cookies.length;                        
-	}
- 
-	return unescape(cookies.substring(begin + prefix.length, end));
-}
-
-function removeCookie(key){
-    if (getCookie(key)) {
-		document.cookie = key + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
-   }
-}
-
 /*
 ** Controller da págia home
 */
@@ -345,7 +350,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	$rootScope.title = 'Seu Imóvel novo pode está aqui.';
 
 	$scope.getChangeValue = function($param){
-		$rootScope.bodyClass = 'home ' + categoria_slug($param);
+		$rootScope.bodyCl = 'home ' + Cl.categorySlug($param);
 	}
 	
 	//$scope função submit da busca de imóveis
@@ -353,7 +358,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 		var cat = this.opcaoCategoria,
 			tip = this.opcaoTipo;
 
-		var routeForm = getRouteSearch(cat, tip);
+		var routeForm = Cl.getRouteSearch(cat, tip);
 
 		$location.path(routeForm);
 	}
@@ -386,7 +391,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 		}
 		else {	
 
-			$scope.urlPath = getRouteSearch(this.opcaoCategoria, this.opcaoTipo);
+			$scope.urlPath = Cl.getRouteSearch(this.opcaoCategoria, this.opcaoTipo);
 
 			var cate = this.opcaoCategoria,
 				type = this.opcaoTipo,
@@ -419,7 +424,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 		}
 	}
 
-	var $cookie = JSON.parse(getCookie("locations"));
+	var $cookie = JSON.parse(Cl.getCookie("locations"));
 
 	if($cookie) {
 		var $cookieUf = $cookie.uf,
@@ -556,10 +561,10 @@ app.controller('ImoveisCtrl', [
 
 		    	for(var i = 1; i <= totalPages; i++){	
 		    		if(i == 1){
-		    			pages.push({'link': rotaDefult, 'num': i, 'class':  i == current ? 'active' : ''});
+		    			pages.push({'link': rotaDefult, 'num': i, 'Cl':  i == current ? 'active' : ''});
 		    		}
 		    		if(i > 1){
-		    			pages.push({'link': rotaDefult + '/page/' + i, 'num': i, 'class':  i == current ? 'active' : ''});		    		
+		    			pages.push({'link': rotaDefult + '/page/' + i, 'num': i, 'Cl':  i == current ? 'active' : ''});		    		
 		    		}    		
 			   	}
 
@@ -598,7 +603,7 @@ app.controller('ImoveisCtrl', [
 		    }
 		    /*Fim das funções referente a paginação*/
 
-		    $scope.resultTotal = resultTitle($routeParams.category, response.data.retults, $routeParams.type);
+		    $scope.resultTotal = Cl.resultTitle($routeParams.category, response.data.retults, $routeParams.type);
 
 		    $scope.breadcumbs = response.data.breadcumbs;
 		    $scope.allImoveis = response.data.imovel;
@@ -616,7 +621,7 @@ app.controller('ImoveisCtrl', [
 
 		    if($uf != null && $uf != "" && $city != null && $city != ""){
 		    	var $localJson = {"uf": $uf, "city": $city, "local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label };
-		   		setCookie("locations", JSON.stringify($localJson), 7, "/");
+		   		Cl.setCookie("locations", JSON.stringify($localJson), 7, "/");
 		    }
 
 		  }, function (error) {
@@ -630,7 +635,7 @@ app.controller('ImoveisCtrl', [
 				tip = this.opcaoTipo,
 				bus = this.buscar;
 
-			var routeForm = getRouteSearch(cat, tip);
+			var routeForm = Cl.getRouteSearch(cat, tip);
 
 			$location.path(routeForm);
 		}
@@ -653,7 +658,7 @@ app.controller('ImovelCtrl', [
 		  .then(function (response) {			
 
 		  	$rootScope.loaded = false;		
-		  	$rootScope.currentCat = categoria_slug(response.data['imovel'].categoria);
+		  	$rootScope.currentCat = Cl.categorySlug(response.data['imovel'].categoria);
 
 		  	$scope.isPage = response.data.length > 1 ? response.data.length : 1;
 
@@ -690,7 +695,7 @@ app.controller('ImovelCtrl', [
 		    		"local": $scope.breadcumbs[4].label + " - " + $scope.breadcumbs[3].label
 		    	};
 
-		   	setCookie("locations", JSON.stringify($localJson), 7, "/");
+		   	Cl.setCookie("locations", JSON.stringify($localJson), 7, "/");
 
 		    $scope.googleMap = true;
 
@@ -702,7 +707,7 @@ app.controller('ImovelCtrl', [
 		    	lg = parseFloat(response.data['imovel'].address_lng);
 
 		    $timeout(function(){							
-			    initMap(la, lg);		    
+			    Cl.initMap(la, lg);		    
 			}, 500);
 
 

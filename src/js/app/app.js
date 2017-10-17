@@ -1,6 +1,3 @@
-(function(){
-	'use strict'
-
 	/*
 	* Declara o modulo para App
 	*/

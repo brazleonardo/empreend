@@ -39,6 +39,7 @@ module.exports = function (grunt) {
                         'src/js/vendor/angular-resource.min.js'
                     ],
                     'src/js/temp/app.js': [
+                        'src/js/app/helpers.js',
                         'src/js/app/app.js', 
                         'src/js/app/appCtrl.js', 
                         'src/js/app/appSrv.js'
