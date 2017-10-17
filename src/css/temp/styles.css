@@ -357,7 +357,7 @@ body.home #main {
       padding: 20px 30px;
       border-radius: 4px;
       box-shadow: 0 0 3px #cccccc;
-      z-index: 2; }
+      z-index: 20; }
       #main .search-imovel .sch-control .autocomp p {
         margin: 0 0 10px; }
       #main .search-imovel .sch-control .autocomp ul {
