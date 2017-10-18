@@ -153,10 +153,27 @@
 			if (Cl.getCookie(key)) {
 				document.cookie = key + "=" + "; expires=Thu, 01-Jan-70 00:00:01 GMT";
 		   }
+		},
+
+		/*Método que exibe ou oculta a barra de breadcrumb*/
+		ShowHideBreadcrumb: function(){
+
+			var lastScrollTop = 0;
+			$(window).scroll(function(event){
+				var st = $(this).scrollTop();
+				if (st > lastScrollTop){
+					$(".breadcrumb").addClass("remove-navbar");
+				}
+				if(st < lastScrollTop) {
+					$(".breadcrumb").removeClass("remove-navbar");
+				}
+			   lastScrollTop = st;
+			});
 		}
 
 	};
 
+	Cl.ShowHideBreadcrumb();
 	/*
 	* Declara o modulo para App
 	*/
