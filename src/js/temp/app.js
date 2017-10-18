@@ -448,6 +448,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	  .then(function (response) {
 
 	    $scope.lancamentosImoveis = response.data.imovel;
+	    $scope.isPage = response.data.length > 1 ? response.data.length : 1;
 
 	    $(function(){
 			$('.owl-carousel').owlCarousel({
@@ -475,6 +476,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	  .then(function (response) {
 
 	    $scope.sugestoesImoveis = response.data.imovel;
+	    $scope.isPage = response.data.length > 1 ? response.data.length : 1;
 
 	    $(function(){
 			$('.owl-carousel').owlCarousel({
