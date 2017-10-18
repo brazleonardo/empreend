@@ -346,7 +346,6 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	$scope.opcaoTipo = '1';
 	$scope.buscar = "";
 
-	$rootScope.loaded = false;
 	$rootScope.title = 'Seu Imóvel novo pode está aqui.';
 
 	$scope.getChangeValue = function($param){
@@ -449,6 +448,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 
 	    $scope.lancamentosImoveis = response.data.imovel;
 	    $scope.isPage = response.data.length > 1 ? response.data.length : 1;
+	    $rootScope.loaded = false;
 
 	    $(function(){
 			$('.owl-carousel').owlCarousel({
@@ -477,6 +477,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 
 	    $scope.sugestoesImoveis = response.data.imovel;
 	    $scope.isPage = response.data.length > 1 ? response.data.length : 1;
+	    $rootScope.loaded = false;
 
 	    $(function(){
 			$('.owl-carousel').owlCarousel({
