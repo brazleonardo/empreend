@@ -10,7 +10,7 @@ app.controller('HomeCtrl', ['$scope', 'apiConnect', '$location', '$routeParams',
 	$rootScope.title = 'Seu Imóvel novo pode está aqui.';
 
 	$scope.getChangeValue = function($param){
-		$rootScope.bodyCl = 'home ' + Cl.categorySlug($param);
+		$rootScope.bodyClass = 'home ' + Cl.categorySlug($param);
 	}
 	
 	//$scope função submit da busca de imóveis
